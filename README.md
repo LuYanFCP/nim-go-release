@@ -2,6 +2,12 @@
 
 A CLI tool that wraps NVIDIA NIM container deployment into Ollama-style commands. Go from `nim pull` to `nim launch claude-code` in three commands.
 
+## Documentation
+
+- [How to Use (English)](./docs/how-to-use.md)
+- [如何使用 (中文)](./docs/how-to-use-zh.md)
+
+
 ## Quick Install
 
 ```bash
