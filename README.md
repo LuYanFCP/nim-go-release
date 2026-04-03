@@ -11,7 +11,7 @@ curl -fsSL https://raw.githubusercontent.com/LuYanFCP/nim-go-release/main/instal
 **China / 国内用户：**
 
 ```bash
-curl -fsSL https://v6.gh-proxy.org/https://raw.githubusercontent.com/LuYanFCP/nim-go-release/main/install.sh | bash
+curl -fsSL https://v6.gh-proxy.org/https://raw.githubusercontent.com/LuYanFCP/nim-go-release/refs/heads/main/install.sh | bash
 ```
 
 ### Options
