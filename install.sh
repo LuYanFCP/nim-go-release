@@ -37,18 +37,45 @@ detect_os() {
 }
 
 detect_china_network() {
-    if curl -sI --connect-timeout 3 --max-time 5 "https://github.com" > /dev/null 2>&1; then
+    if curl -sI --connect-timeout 3 --max-time 5 "https://api.github.com" > /dev/null 2>&1; then
         echo "direct"
     else
         echo "proxy"
     fi
 }
 
-get_latest_version() {
+get_version_via_api() {
     local url="$1"
+    curl -fsSL "${url}/repos/${REPO}/releases/latest" 2>/dev/null \
+        | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"//;s/".*//'
+}
+
+get_version_via_redirect() {
+    local base="$1"
+    curl -fsSLI -o /dev/null -w '%{url_effective}' "${base}/${REPO}/releases/latest" 2>/dev/null \
+        | sed 's|.*/tag/||'
+}
+
+get_latest_version() {
+    local api_base="$1"
+    local github_base="$2"
     local version
-    version=$(curl -fsSL "${url}/repos/${REPO}/releases/latest" 2>/dev/null \
-        | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"//;s/".*//')
+
+    version=$(get_version_via_api "${api_base}")
+
+    if [ -z "${version}" ]; then
+        warn "API fetch failed, trying redirect method..."
+        version=$(get_version_via_redirect "${github_base}")
+    fi
+
+    if [ -z "${version}" ] && [ "${api_base}" != "https://v6.gh-proxy.org/https://api.github.com" ]; then
+        warn "Direct access failed, falling back to proxy..."
+        version=$(get_version_via_api "https://v6.gh-proxy.org/https://api.github.com")
+        if [ -z "${version}" ]; then
+            version=$(get_version_via_redirect "https://v6.gh-proxy.org/https://github.com")
+        fi
+    fi
+
     if [ -z "${version}" ]; then
         error "Failed to fetch latest version. Check your network or set NIM_VERSION manually."
     fi
@@ -80,7 +107,7 @@ main() {
     version="${NIM_VERSION:-}"
     if [ -z "${version}" ]; then
         info "Fetching latest version..."
-        version=$(get_latest_version "${api_base}")
+        version=$(get_latest_version "${api_base}" "${github_base}")
     fi
     info "Version: ${version}"
 
