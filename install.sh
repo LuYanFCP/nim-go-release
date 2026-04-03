@@ -115,7 +115,6 @@ main() {
     download_url="${github_base}/${REPO}/releases/download/${version}/${binary_name}"
 
     info "Downloading ${binary_name}..."
-    local tmpdir
     tmpdir=$(mktemp -d)
     trap 'rm -rf "${tmpdir}"' EXIT
 
