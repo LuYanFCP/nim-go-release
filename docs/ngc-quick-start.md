@@ -1,6 +1,6 @@
-
+# Quick Start with NGC
 ## 0. Obtaining API Keys
-Depending on which workflows you are running, you may need to obtain API keys from the respective services. NI require an NVIDIA API key defined with the NVIDIA_API_KEY environment variable. An API key can be obtained by creating an account on build.nvidia.com.
+Depending on which workflows you are running, you may need to obtain API keys from the respective services. NI require an NVIDIA API key defined with the NVIDIA_API_KEY environment variable. An API key can be obtained by creating an account on [build.nvidia.com](https://build.nvidia.com).
 
 ## 1. Install Nim CLI
 ```bash
@@ -18,12 +18,6 @@ curl -fsSL https://v6.gh-proxy.org/https://raw.githubusercontent.com/LuYanFCP/ni
 ![Install NIM CLI](./pic/install.png)
 
 </details>
-
-## 1.1. Diag check and fix
-```bash
-nim diag
-nim diag --fix
-```
 
 ## 2a. Launch a NIM with OpenClaw
 
