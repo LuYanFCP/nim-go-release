@@ -4,8 +4,9 @@ A CLI tool that wraps NVIDIA NIM container deployment into Ollama-style commands
 
 ## Documentation
 
-- [How to Use (English)](./docs/how-to-use.md)
-- [如何使用 (中文)](./docs/how-to-use-zh.md)
+
+- [How to Use (English)](./docs/how-to-use-detail.md)
+- [如何使用 (中文)](./docs/how-to-use-detail-zh.md)
 
 
 ## Quick Install
