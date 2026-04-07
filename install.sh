@@ -12,8 +12,8 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
-info()  { printf "${CYAN}%s${RESET}\n" "$*"; }
-success() { printf "${GREEN}${BOLD}%s${RESET}\n" "$*"; }
+info()  { printf "${CYAN}%s${RESET}\n" "$*" >&2; }
+success() { printf "${GREEN}${BOLD}%s${RESET}\n" "$*" >&2; }
 warn()  { printf "${YELLOW}%s${RESET}\n" "$*" >&2; }
 error() { printf "${RED}%s${RESET}\n" "$*" >&2; exit 1; }
 
@@ -46,14 +46,22 @@ detect_china_network() {
 
 get_version_via_api() {
     local url="$1"
-    curl -fsSL "${url}/repos/${REPO}/releases/latest" 2>/dev/null \
+    curl -fsSL -H "User-Agent: nim-installer" \
+        "${url}/repos/${REPO}/releases/latest" 2>/dev/null \
         | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"//;s/".*//'
 }
 
 get_version_via_redirect() {
     local base="$1"
-    curl -fsSLI -o /dev/null -w '%{url_effective}' "${base}/${REPO}/releases/latest" 2>/dev/null \
+    curl -fsSLI -o /dev/null -w '%{url_effective}' \
+        -H "User-Agent: nim-installer" \
+        "${base}/${REPO}/releases/latest" 2>/dev/null \
         | sed 's|.*/tag/||'
+}
+
+is_valid_version() {
+    # Version must start with 'v' and contain no spaces/control chars
+    [[ "$1" =~ ^v[0-9] ]] && [[ ! "$1" =~ [[:space:]] ]]
 }
 
 get_latest_version() {
@@ -63,20 +71,20 @@ get_latest_version() {
 
     version=$(get_version_via_api "${api_base}")
 
-    if [ -z "${version}" ]; then
+    if ! is_valid_version "${version:-}"; then
         warn "API fetch failed, trying redirect method..."
         version=$(get_version_via_redirect "${github_base}")
     fi
 
-    if [ -z "${version}" ] && [ "${api_base}" != "https://v6.gh-proxy.org/https://api.github.com" ]; then
+    if ! is_valid_version "${version:-}" && [ "${api_base}" != "https://v6.gh-proxy.org/https://api.github.com" ]; then
         warn "Direct access failed, falling back to proxy..."
         version=$(get_version_via_api "https://v6.gh-proxy.org/https://api.github.com")
-        if [ -z "${version}" ]; then
+        if ! is_valid_version "${version:-}"; then
             version=$(get_version_via_redirect "https://v6.gh-proxy.org/https://github.com")
         fi
     fi
 
-    if [ -z "${version}" ]; then
+    if ! is_valid_version "${version:-}"; then
         error "Failed to fetch latest version. Check your network or set NIM_VERSION manually."
     fi
     echo "${version}"
