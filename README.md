@@ -3,7 +3,8 @@
 We built the NIM CLI with 2 goals:
 - Make running NIM extremely simple
 - Deeply integrate NIM with the Claw ecosystem, so users can install OpenClaw (or other code agent like Claude Code) in a single command, with NIM automatically configured as the agent’s LLM
-For now, it supports DGX Spark only. We'll extend to a wide range of GPUs later.
+
+For now, $\color{red}{\textbf{it supports DGX Spark only}}$. We'll extend to a wide range of GPUs later.
 
 ## Documentation
 
