@@ -19,7 +19,7 @@ If you want to use wechat to send instructions to the openclaw
 ```bash
 nim launch openclaw --with-wechat
 ```
-The command will install OpenClaw, and in the meanwhile, it will ask the user to choose a model then choose a registry.
+The command will install OpenClaw, and in the meanwhile, it will ask the user to choose a registry and then choose a model.
 In China, we distribute NIM via CND (China NIM Distributor). We have Three CNDs: ```tgcr```, ```turingcm```, ```lichan```
 For __Spark NIMs__, authentication is not required from these 3 CNDs.
 We recommend ```tgrc``` for its fastest downloading speed.

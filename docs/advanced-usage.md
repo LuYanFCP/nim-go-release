@@ -1,0 +1,148 @@
+# How to Use Nim CLI
+
+## 0. Introduction
+
+Nim CLI is a command-line tool for managing NVIDIA NIM containers. It provides functionalities such as pulling, launching, stopping, and listing NIM containers. Especially in China, it offers the ability to connect to and switch between CND - China NIM Distributor, they are NGC mirrors, greatly simplifying the user experience. Beyond that, its core feature is Agent integration — the `nim launch <agent>` command lets you install, configure, and start an Agent with a single command, automatically connecting your local NIM to the Agent.
+
+## 1. Install NIM CLI
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/LuYanFCP/nim-go-release/main/install.sh | bash
+```
+
+**China / 国内用户：**
+
+```bash
+curl -fsSL https://v6.gh-proxy.org/https://raw.githubusercontent.com/LuYanFCP/nim-go-release/refs/heads/main/install.sh | bash
+```
+
+Verify your installation
+
+```bash
+nim --help
+```
+
+If you have installed the NIM CLI before, update to the latest version
+
+```bash
+sudo nim update
+```
+![NIM Update](./pic_yy/nim-update.png)
+
+## 2. Choose where to download
+
+In China, we distribute NIM via CND (China NIM Distributor). We have Three CNDs: ```tgcr```, ```turingcm```, ```lichan```
+For __Spark NIMs__, authentication is not required from these 3 CNDs
+
+```bash
+nim config registry list
+```
+![CND List](./pic_yy/CND-List.png)
+
+#### Scenario 1: if you're in China
+
+Choose any of these 3 CND as the default. e.g., if you want to achieve the fastest downloading speed, choose ```tgcr```
+
+```bash
+nim config registry default tgcr
+```
+
+#### Scenario 2: if you're outside China
+
+Choose either ```ngc``` or ```tgcr```.
+
+If you choose ```ngc```, NVAIE API Key is required later.
+
+
+## 3. Finding the Right NIM Container
+
+```bash
+nim search <query>
+```
+
+For example, searching for NIM containers related to Qwen3.5:
+![Search for Qwen3.5 NIM containers](./pic/qwen3.5-search.png)
+
+## 4. Pulling and Starting a NIM
+
+Once you find a suitable NIM, copy the NIM image name to pull and start it. For example, pulling Qwen3.5-35B-A3B:
+```bash
+nim pull qwen/qwen3.5-35b-a3b
+nim run qwen/qwen3.5-35b-a3b --port 8001 # Specify port 8001; defaults to 8000 if omitted
+```
+
+> Note: `nim run` works like `docker run` — if the NIM image is not found locally, it will be automatically pulled before starting.
+
+![Pull and start NIM](./pic/qwen3.5-run.png)
+
+## 5. Launching Claude Code with NIM CLI
+
+NIM CLI provides the `nim launch <agent>` command to install, configure, and start an Agent in one step, automatically connecting your local NIM to the Agent.
+
+For example, launching Claude Code:
+```bash
+nim launch claude-code --model qwen/qwen3.5-35b-a3b --port 8001
+nim launch claude-code # Use a locally running NIM
+```
+
+![Full example](./pic/claude-code-without-run.png)
+
+Start using the prompted command:
+
+```bash
+source /root/.nim/claude-code.env && claude
+```
+
+![claude-code](./pic/claude-code-local.png)
+
+
+## 6. Launching OpenClaw with NIM CLI
+
+Nim CLI provides the `nim launch openclaw` command to install, configure, and start OpenClaw in one step, automatically connecting your local NIM to the Agent. Additionally, to support the China market, we provide `nim launch openclaw --with-wechat`, which automatically installs and configures the WeChat plugin.
+
+For example, launching OpenClaw:
+```bash
+nim launch openclaw --model qwen/qwen3.5-35b-a3b --port 8001
+nim launch openclaw # Use a locally running NIM
+nim launch openclaw --with-wechat # Install and auto-configure the WeChat plugin, then start the OpenClaw gateway
+nim launch openclaw --run # Start the OpenClaw gateway and OpenClaw TUI
+```
+
+The following images show the full workflow of installing, starting, and configuring OpenClaw, including WeChat plugin installation and configuration.
+![Install / Start / Configure OpenClaw](./pic/openclaw-install.png)
+![WeChat configuration](./pic/config_wechat.png)
+
+
+WeChat connection and access:
+
+![WeChat connection and access](./pic/wechat_connect.jpg)
+![WeChat conversation](./pic/wechat-comm.jpg)
+
+
+## 7. Trouble Shooting
+
+You may encounter the errors below
+
+```
+Error: Docker error: Docker responded with status code 401: unauthorized: project nim not found: project nim not found
+
+Caused by:
+    Docker responded with status code 401: unauthorized: project nim not found: project nim not found
+```
+Run Diagnose
+
+```bash
+nim diag
+```
+
+![Run diagnose](./pic_yy/diagnose.png)
+
+Fix the issue
+
+```bash
+nim diag --fix
+```
+![Fix the issue](./pic_yy/fix.png)
+![Fixd](./pic_yy/check-pass.png)
+
+
