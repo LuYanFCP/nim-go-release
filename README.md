@@ -1,12 +1,18 @@
-# nim
+# nim cli
 
-A CLI tool that wraps NVIDIA NIM container deployment into Ollama-style commands. Go from `nim pull` to `nim launch claude-code` in three commands.
+We built the NIM CLI with 2 goals:
+- Make running NIM extremely simple
+- Deeply integrate NIM with the Claw ecosystem, so users can install OpenClaw (or other code agent like Claude Code) in a single command, with NIM automatically configured as the agent’s LLM
+For now, it supports DGX Spark only. We'll extend to a wide range of GPUs later.
 
 ## Documentation
 
 
-- [How to Use (English)](./docs/how-to-use-detail.md)
-- [如何使用 (中文)](./docs/how-to-use-detail-zh.md)
+
+- [QuickStart](./docs/quick-start.md)
+
+- [Detail](./docs/how-to-use-detail.md)
+
 
 
 ## Quick Install
@@ -35,22 +41,4 @@ NIM_INSTALL_DIR=~/.local/bin curl -fsSL https://raw.githubusercontent.com/LuYanF
 
 | Platform | Architecture | Binary |
 |----------|-------------|--------|
-| Linux | x86_64 (amd64) | `nim-linux-amd64` |
 | Linux | aarch64 (arm64) | `nim-linux-arm64` |
-
-## Quick Start
-
-```bash
-# Pull a model
-nim pull llama-3.1-8b-instruct
-
-# Run it
-nim run llama-3.1-8b-instruct
-
-# Launch with Claude Code
-nim launch claude-code --model llama-3.1-8b-instruct
-```
-
-## License
-
-Apache-2.0
