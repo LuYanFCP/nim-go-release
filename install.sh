@@ -14,7 +14,7 @@ RESET='\033[0m'
 
 info()  { printf "${CYAN}%s${RESET}\n" "$*"; }
 success() { printf "${GREEN}${BOLD}%s${RESET}\n" "$*"; }
-warn()  { printf "${YELLOW}%s${RESET}\n" "$*"; }
+warn()  { printf "${YELLOW}%s${RESET}\n" "$*" >&2; }
 error() { printf "${RED}%s${RESET}\n" "$*" >&2; exit 1; }
 
 detect_arch() {
