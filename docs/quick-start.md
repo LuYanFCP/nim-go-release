@@ -35,7 +35,7 @@ nim config registry list
 Choose any of these 3 CND as the default. e.g., if you want to achieve the fastest downloading speed, choose ```tgcr```, if you want to use the latest spark NIM ```qwen3.5-35b-a3b```, choose ```turingcm```
 
 ```bash
-nim config registry default tgcr
+nim config registry default turingcm
 ```
 
 #### Scenario 2: if you're outside China
