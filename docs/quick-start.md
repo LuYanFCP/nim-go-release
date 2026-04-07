@@ -45,6 +45,8 @@ Choose either ```ngc``` or ```tgcr```.
 If you choose ```ngc```, NVAIE API Key is required later.
 Depending on which workflows you are running, you may need to obtain API keys from the respective services. NI require an NVIDIA API key defined with the NVIDIA_API_KEY environment variable. An API key can be obtained by creating an account on [build.nvidia.com](https://build.nvidia.com).
 
+[Ngc quick start](./ngc-quick-start.md)
+
 
 ## Step 3. Launch a NIM with OpenClaw or Claude Code
 
