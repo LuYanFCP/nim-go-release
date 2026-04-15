@@ -14,7 +14,7 @@ Key features:
 curl -fsSL https://raw.githubusercontent.com/LuYanFCP/nim-go-release/main/install.sh | bash
 ```
 
-**For users located in China：**
+**For users located in China:**
 
 ```bash
 curl -fsSL https://v6.gh-proxy.org/https://raw.githubusercontent.com/LuYanFCP/nim-go-release/refs/heads/main/install.sh | bash
@@ -56,7 +56,7 @@ nim config registry default tgcr
 
 Set `ngc` or `tgcr` as the default.
 
-> If you choose `ngc`, an NVAIE API Key is required.
+> If you choose `ngc`, an NVIDIA API key is required. See [NGC Quick Start](./ngc-quick-start.md).
 
 
 ## 3. Search for NIM Containers
@@ -131,7 +131,7 @@ Run diagnostics:
 nim diag
 ```
 
-![Run diagnose](./pic_yy/diagnose.png)
+![Run diagnostics](./pic_yy/diagnose.png)
 
 Auto-fix the issue:
 
