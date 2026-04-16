@@ -105,7 +105,9 @@ source /root/.nim/claude-code.env && claude
 nim launch openclaw --model qwen/qwen3.5-35b-a3b --port 8001
 nim launch openclaw                # use a locally running NIM
 nim launch openclaw --with-wechat  # auto-install and configure the WeChat plugin
+nim launch openclaw --with-feishu  # auto-install and configure the Feishu plugin
 nim launch openclaw --run          # start the OpenClaw gateway and TUI
+nim launch openclaw --websearch    # configure OpenClaw web search interactively, supporting Kimi Search, MiniMax Search, Tavily
 ```
 
 ![Install / Start / Configure OpenClaw](./pic/openclaw-install.png)
@@ -116,6 +118,8 @@ WeChat connection:
 ![WeChat connection](./pic/wechat_connect.jpg)
 ![WeChat conversation](./pic/wechat-comm.jpg)
 
+![Feishu connection](./pic/feishu.jpeg)
+![Websearch](./pic/websearch.jpeg)
 
 ## 7. Troubleshooting
 

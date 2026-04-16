@@ -6,7 +6,7 @@ NIM CLI 是一个用于管理 NVIDIA NIM 容器的命令行工具，可以方便
 
 它的主要特性包括：
 
-- **中国镜像支持：** 支持接入和切换 NGC-NIM 镜像源，方便中国用户获取 NIM 镜像。
+- **中国镜像支持：** 支持接入和切换 CND-NIM 镜像源，方便中国用户获取 NIM 镜像。
 - **Agent 集成：** 提供 `nim launch <agent>` 命令，可一键安装、配置并启动 Agent，同时自动将本地 NIM 接入 Agent。
 
 ## 1. 安装 NIM CLI
@@ -20,6 +20,19 @@ curl -fsSL https://raw.githubusercontent.com/LuYanFCP/nim-go-release/main/instal
 ```bash
 curl -fsSL https://v6.gh-proxy.org/https://raw.githubusercontent.com/LuYanFCP/nim-go-release/refs/heads/main/install.sh | bash
 ```
+
+验证安装是否成功：
+
+```bash
+nim --help
+```
+
+升级到最新版本：
+
+```bash
+sudo nim update
+```
+![NIM 更新](./pic_yy/nim-update.png)
 
 ## 2. 选择下载源
 
@@ -100,7 +113,9 @@ NIM CLI 提供 `nim launch openclaw` 命令，可一键安装、配置并启动 
 nim launch openclaw --model qwen/qwen3.5-35b-a3b --port 8001
 nim launch openclaw # 使用本地已启动的 NIM
 nim launch openclaw --with-wechat # 安装 WeChat plugin并自动配置，然后启动 OpenClaw gateway
+nim launch openclaw --with-feishu # 自动安装并配置 Feishu plugin
 nim launch openclaw --run # 启动 OpenClaw gateway 和 OpenClaw TUI
+nim launch openclaw --websearch # 交互式配置 OpenClaw 的网页搜索，支持 Kimi Search、MiniMax Search、Tavily
 ```
 
 下图展示了安装、启动和配置 OpenClaw 的完整流程，其中也包括 WeChat 插件的安装与配置：
@@ -111,6 +126,11 @@ nim launch openclaw --run # 启动 OpenClaw gateway 和 OpenClaw TUI
 
 ![微信连接和访问](./pic/wechat_connect.jpg)
 ![微信对话](./pic/wechat-comm.jpg)
+
+飞书连接与网页搜索配置示例：
+
+![飞书连接](./pic/feishu.jpeg)
+![网页搜索](./pic/websearch.jpeg)
 
 ## 7. 故障排查
 
